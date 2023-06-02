@@ -1,9 +1,9 @@
-import '@/styles/globals.css'
+import '../styles/globals.css'
 import Navbar from '../components/Navbar'
 import {SessionProvider} from "next-auth/react";
-import Footer from "@/components/Footer";
+import Footer from "../components/Footer";
 import {useEffect, useState} from "react";
-import Preloader from "@/components/Preloader";
+import Preloader from "../components/Preloader";
 
 export default function App({ Component, pageProps }) {
     const [isLoading, setIsLoading] = useState(true);

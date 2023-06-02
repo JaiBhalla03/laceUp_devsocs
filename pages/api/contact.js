@@ -1,22 +1,23 @@
-import prisma from '../../prisma/lib/client';
+import prisma from '../../prisma/lib/client'
 
-export default async function handler(req ,res){
-    if(req.method === 'POST'){
-        const {name, email, message} = req.body;
-        try{
+export default async function handler(req, res) {
+    if (req.method === 'POST') {
+        const { name, email, message } = req.body;
+        try {
             const contact = await prisma.contact.create({
-                data:{
-                    name, email, message
-                }
-            })
-            res.status(200).json({message: 'contact form submitted successfully'});
+                data: {
+                    name,
+                    email,
+                    message,
+                },
+            });
+            console.log('Message sent:', contact);
+            res.status(200).json({ message: 'Message sent successfully' });
+        } catch (error) {
+            console.error('Error sending message:', error);
+            res.status(500).json({ message: 'An error occurred while sending the message' });
         }
-        catch(error){
-            console.error(error);
-            res.status(500).json({message: 'An error occurred while submitting the form'});
-        }
-    }
-    else{
-        res.status(405).json({message: 'Method not allowed'});
+    } else {
+        res.status(405).json({ message: 'Method not allowed' });
     }
 }

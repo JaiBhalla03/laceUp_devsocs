@@ -12,15 +12,17 @@ export default async function handler(req, res) {
         favouriteSports,
         rating
     } = req.body;
-
+    console.log({ email, fullName, address, phoneNumber, favouriteSports, rating})
     try {
         const updatedUser = await prisma.user.update({
             where: { email },
-            data: { fullName,
+            data: {
+                fullName,
                 address,
                 phoneNumber,
                 favouriteSports,
-                rating },
+                rating
+            },
         });
 
         res.status(200).json(updatedUser);

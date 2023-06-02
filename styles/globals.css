@@ -18,3 +18,7 @@
 .animate-progress {
     animation: progressAnimation 2.5s linear infinite;
 }
+
+.class{
+    background: #46c946;
+}

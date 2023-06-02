@@ -59,23 +59,26 @@ const Details = () => {
         rating
     }
 
-    const handleSubmit = async()=>{
-        try{
-            console.log(data);
-            await axios.post('/api/updateDetails', {
-                email,
-                fullName,
-                address,
-                phoneNumber,
-                favouriteSports,
-                rating
-            })
-        }
-        catch(err){
-            console.error(err)
-        }
-    }
+    // const handleSubmit = async()=>{
+    //     try{
+    //         console.log(data);
+    //         await axios.post('/api/updateDetails', {
+    //             email,
+    //             fullName,
+    //             address,
+    //             phoneNumber,
+    //             favouriteSports,
+    //             rating
+    //         })
+    //     }
+    //     catch(err){
+    //         console.error(err)
+    //     }
+    // }
+    const handleSubmit = ()=>{
 
+    }
+    console.log(data)
     return (
         <Bounce triggerOnce>
             <div className="bg-white text-black sm:px-16 md:px-24 lg:px-28 lg:py-12 sm:py-4 md:py-20">
@@ -118,7 +121,6 @@ const Details = () => {
                                 <Typography component="legend">Rate yourself</Typography>
                                 <Rating
                                     name="size-large"
-                                    defaultValue={rating}
                                     size="large"
                                     onChange={handleChange}
                                 />

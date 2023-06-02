@@ -6,6 +6,7 @@ import Link from "next/link";
 import {signIn, signOut, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 import {MenuItem} from "@mui/material";
+import {GiRunningShoe} from "react-icons/gi";
 
 export default function Navbar(){
     const router = useRouter();
@@ -53,7 +54,7 @@ export default function Navbar(){
     };
 
     return (
-        <nav className={`z-20 bg-white text-black border-b-[1px] transition-all duration-700 transition-all ${
+        <nav className={`z-20 bg-white text-black border-b-[1px] font-semibold transition-all duration-700 transition-all ${
             isScrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100 sticky top-0"
         }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,6 +84,12 @@ export default function Navbar(){
                                 </li>
                             </ul>
                             <ul className="flex space-x-10 text-xl">
+                                <li className={'relative p-2'}>
+                                    <GiRunningShoe size={28}/>
+                                    <p className={'absolute top-0 end-0 rounded-full shadow-gray-800 shadow-sm px-1.5 text-sm'}>
+                                        0
+                                    </p>
+                                </li>
                                 <li className={'relative flex flex-col justify-center items-center'}>
                                     <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
                                         {data ?
