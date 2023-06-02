@@ -5,6 +5,7 @@ import logo from '../images/logo.png'
 import Link from "next/link";
 import {signIn, signOut, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
+import {MenuItem} from "@mui/material";
 
 export default function Navbar(){
     const router = useRouter();
@@ -52,7 +53,7 @@ export default function Navbar(){
     };
 
     return (
-        <nav className={`z-20 bg-white text-black border-b-[1px] border-b-grey-200 transition-all duration-700 transition-all ${
+        <nav className={`z-20 bg-white text-black border-b-[1px] transition-all duration-700 transition-all ${
             isScrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100 sticky top-0"
         }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -91,19 +92,20 @@ export default function Navbar(){
                                                     {isOpenDetails && (
                                                         <div
                                                             id="dropdownDelay"
-                                                            className="absolute right-0 text-black z-10 mt-4 animate-slide-down bg-white divide-y divide-gray-100 rounded-md shadow-sm shadow-gray-800 w-44"
+                                                            className="absolute right-0 text-black z-10 mt-4 animate-slide-down bg-white divide-y divide-gray-100 shadow-md shadow-gray-600 w-44"
                                                         >
-                                                            <ul className="my-2" aria-labelledby="dropdownDelayButton">
-                                                                <li className={'text-lg'}>
-                                                                    <Link href="/Dashboard" className="block px-3 py-1 hover:bg-gray-200">
+                                                            <ul className="" aria-labelledby="dropdownDelayButton">
+                                                                <Link href="/dashboard" className="block flex justify-center">
+                                                                    <MenuItem className={'text-lg w-full flex justify-center'}>
                                                                         Dashboard
-                                                                    </Link>
-                                                                </li>
-                                                                <li className={'text-lg'}>
-                                                                    <Link href="/Details" className="block px-3 py-1 hover:bg-gray-200">
-                                                                        Update details
-                                                                    </Link>
-                                                                </li>
+                                                                    </MenuItem>
+                                                                </Link>
+                                                                <Link href="/details" className="block flex justify-center py-1">
+                                                                    <MenuItem className={'text-lg w-full flex justify-center'}>
+                                                                        Update Details
+                                                                    </MenuItem>
+                                                                </Link>
+
                                                                 <li className={'border-t-[1px] flex justify-center text-lg hover:bg-gray-200'}>
                                                                     <button onClick={()=>signOut()} className="block px-3 py-1 hover:bg-gray-200">
                                                                         LogOut

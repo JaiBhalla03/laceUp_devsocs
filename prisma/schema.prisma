@@ -47,8 +47,8 @@ model User {
   image              String?
   userImage          String?
   role               String?
-  interestType       String?
-  isFeatured         Boolean    @default(false)
+  favouriteSports    String?
+  rating             String?
   accounts           Account[]
   sessions           Session[]
 }

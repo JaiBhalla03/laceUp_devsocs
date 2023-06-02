@@ -54,9 +54,9 @@ const Footer = () => {
                                     <h2 className="uppercase mb-4 font-bold text-xl">Quick links</h2>
                                     <ul className="leading-loose">
                                         <li><Link href="/" className={'underline'}>Home</Link></li>
-                                        <li><Link href="/Artists/index" className={'underline'}>Artist</Link></li>
-                                        <li><Link href="/Artworks" className={'underline'}>Artworks</Link></li>
-                                        <li><Link href="/About" className={'underline'}>About</Link></li>
+                                        <li><Link href="/matches" className={'underline'}>Find Matches</Link></li>
+                                        <li><Link href="/tournament" className={'underline'}>Enter Tournament</Link></li>
+                                        <li><Link href="/book" className={'underline'}>Book Venue</Link></li>
                                     </ul>
                                 </div>
                                 <div className="md:w-[20%] md:px-4">
