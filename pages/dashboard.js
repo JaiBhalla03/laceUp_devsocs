@@ -11,7 +11,37 @@ import tennisImage from '../images/add1.png';
 import badmintonImage from '../images/add2.jpg';
 import basketballImage from '../images/add3.png';
 
+const { Configuration, OpenAIApi } = require("openai");
+
 const Dashboard = () => {
+    const configuration = new Configuration({
+        apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+    });
+
+    const openai = new OpenAIApi(configuration);
+    const [prompt, setPrompt] = useState("");
+    const [apiResponse, setApiResponse] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const result = await openai.createCompletion({
+                model: "text-davinci-003",
+                prompt: prompt,
+                temperature: 0.5,
+                max_tokens: 4000,
+            });
+            //console.log("response", result.data.choices[0].text);
+            setApiResponse(result.data.choices[0].text);
+        } catch (e) {
+            //console.log(e);
+            setApiResponse("Something is going wrong, Please try again.");
+        }
+        setLoading(false);
+    };
+
     const {data: session} = useSession();
     console.log(session);
     const [details, setDetails] = useState(null);
@@ -82,11 +112,11 @@ const Dashboard = () => {
     const renderImage = (sports) => {
         switch (sports) {
             case 'Tennis':
-                return <Image src={tennisImage} alt="Tennis" width={120}/>;
+                return <Image src={tennisImage} alt="Tennis" width={130}/>;
             case 'Badminton':
-                return <Image src={badmintonImage} alt="Badminton" width={120}/>;
+                return <Image src={badmintonImage} alt="Badminton" width={130}/>;
             case 'Basketball':
-                return <Image src={basketballImage} alt="Basketball" width={120}/>;
+                return <Image src={basketballImage} alt="Basketball" width={130}/>;
             default:
                 return null;
         }
@@ -215,19 +245,22 @@ const Dashboard = () => {
                         {
                                 details?(
                                     matches?.map((match)=>(
-                                        <div className={'h-[92px] flex justify-around shadow-sm shadow-gray-800'}>
+                                        <div className={'h-[120px] py-2 flex justify-around shadow-sm shadow-gray-800'}>
                                             <div>
                                                 {renderImage(match.game)}
                                             </div>
                                             <div className={'flex flex-col justify-between'}>
                                                 <div className={'flex font-bold'}>
-                                                    Venue: <div className={'font-thin'}>{match.venue}</div>
+                                                    Venue: <div className={'pl-1 font-thin'}>{match.venue}</div>
                                                 </div>
                                                 <div className={'flex font-bold'}>
-                                                    Time: <div className={'font-thin'}>{match.time}</div>
+                                                    Time: <div className={'pl-1 font-thin'}>{match.time}</div>
                                                 </div>
                                                 <div className={'flex font-bold'}>
-                                                    Slay Points BetFor: <div className={'font-thin'}>{match.betFor}</div>
+                                                    Betted For: <div className={'pl-1 font-thin'}>{match.betFor}</div>
+                                                </div>
+                                                <div className={'flex font-bold'}>
+                                                    Maximum Players: <div className={'pl-1 font-thin'}>{match.maxPlayers}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -320,10 +353,8 @@ const Dashboard = () => {
                 <h1 className={'text-3xl'}>
                     Tips and tricks
                 </h1>
-                <div class={'w-full'}>
-                    <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-                    <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-                    <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                <div>
+
                 </div>
             </div>
             {editModalOpen && (
@@ -355,3 +386,10 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+// <div class={'w-full'}>
+//     <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+//     <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+//     <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+// </div>
