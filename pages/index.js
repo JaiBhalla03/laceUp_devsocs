@@ -53,10 +53,10 @@ export default function Home() {
               <Image src={marginImage1} alt={''} className={'w-full'}/>
               <div className={'absolute top-0 left-0 h-full w-full'}>
                 <div className={'w-full h-full backdrop-blur-sm hover:backdrop-blur-md duration-700 transform transition-all p-4 flex flex-col justify-between items-center'}>
-                  <marquee behavior="scroll" direction="left" scrollamount="5" className={'p-4 text-8xl font-semibold text-white'}>
+                  <marquee behavior="scroll" direction="left" scrollamount="5" className={'p-4 text-3xl md:text-6xl lg:text-8xl font-semibold text-white'}>
                     Badminton Tournament at Vellore Stadium
                   </marquee>
-                  <div className={'font-thin text-5xl text-white'}>
+                  <div className={'font-thin text-xl md:text-3xl lg:text-5xl text-white'}>
                     Check out upcoming tournaments!
                   </div>
                 </div>

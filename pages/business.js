@@ -10,19 +10,19 @@ const Business = () => {
                     <div className={'max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm flex p-4'}>
                         <GiRunningShoe size={160}/>
                     </div>
-                    <p className={'font-bold px-4 py-2'}>By 100 SlayPoints for $100</p>
+                    <p className={'font-bold px-4 py-2'}>Buy 100 SlayPoints for $10</p>
                 </div>
                 <div className={"max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm flex flex-col p-4"}>
                     <div className={'max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm flex p-4'}>
                         <GiRunningShoe size={160}/>
                     </div>
-                    <p className={'font-bold px-4 py-2'}>By 100 SlayPoints for $100</p>
+                    <p className={'font-bold px-4 py-2'}>Buy 2000 SlayPoints for $100</p>
                 </div>
                 <div className={"max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm flex flex-col p-4"}>
                     <div className={'max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm flex p-4'}>
                         <GiRunningShoe size={160}/>
                     </div>
-                    <p className={'font-bold px-4 py-2'}>By 100 SlayPoints for $100</p>
+                    <p className={'font-bold px-4 py-2'}>Buy 10000 SlayPoints for $200</p>
                 </div>
                 <div className={"max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm flex flex-col p-4"}>
                     <div className={'max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm flex p-4'}>

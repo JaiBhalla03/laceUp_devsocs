@@ -107,13 +107,13 @@ export default function Navbar(){
                                         Book venue
                                     </Link>
                                 </li>
-                                <li className={'flex items-center w-full'} title={'Watch LIve Matches'}>
+                                <li className={'flex items-center'} title={'Watch LIve Matches'}>
                                     <Link href="/live" className="hover:underline text-red-600">
                                         LIVE!
                                     </Link>
                                 </li>
                             </ul>
-                            <ul className="flex justify-around w-full text-xl">
+                            <ul className="flex space-x-10 text-xl">
                                 <li className={'relative p-2 hover:bg-gray-200 rounded-full duration-500 transition-all transform cursor-pointer'} onClick={handleDropdownToggle}>
                                     <GiRunningShoe size={28}/>
                                     <p className={'absolute top-0 bg-white end-0 rounded-full shadow-gray-800 shadow-sm px-1.5 text-sm'}>
@@ -206,64 +206,64 @@ export default function Navbar(){
                                 LIVE!
                             </Link>
                         </li>
-                        <ul className="flex space-x-10 text-xl">
-                            <li className={'relative p-2 hover:bg-gray-200 rounded-full duration-500 transition-all transform cursor-pointer'} onClick={handleDropdownToggle}>
-                                <GiRunningShoe size={28}/>
-                                <p className={'absolute top-0 bg-white end-0 rounded-full shadow-gray-800 shadow-sm px-1.5 text-sm'}>
-                                    {details?.slayPoints}
-                                </p>
-                                {
-                                    showDropdown && (
-                                        <div className="absolute right-0 z-10 mt-2 w-40 bg-white rounded-md shadow-lg">
+                    </ul>
+                    <ul className="flex space-x-10 text-xl">
+                        <li className={'relative p-2 hover:bg-gray-200 rounded-full duration-500 transition-all transform cursor-pointer'} onClick={handleDropdownToggle}>
+                            <GiRunningShoe size={28}/>
+                            <p className={'absolute top-0 bg-white end-0 rounded-full shadow-gray-800 shadow-sm px-1.5 text-sm'}>
+                                {details?.slayPoints}
+                            </p>
+                            {
+                                showDropdown && (
+                                    <div className="absolute right-0 z-10 mt-2 w-40 bg-white rounded-md shadow-lg">
 
-                                            <MenuItem>
-                                                <Link href={'/business'} className={'py-2'}>
-                                                    Buy Slay Points
-                                                </Link>
-                                            </MenuItem>
+                                        <MenuItem>
+                                            <Link href={'/business'} className={'py-2'}>
+                                                Buy Slay Points
+                                            </Link>
+                                        </MenuItem>
+                                    </div>
+                                )
+                            }
+                        </li>
+                        <li className={'relative flex flex-col justify-center items-center'}>
+                            <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
+                                {data ?
+                                    <button onClick={toggleDropdownDetails} className={'p-1 transform transition-all duration-500 rounded-full shadow-gray-800 shadow-sm'}>
+                                        <div>
+                                            <Image className={'rounded-full cursor-pointer'} src={data?.user?.image} alt={''} width={35} height={35}/>
+                                            {isOpenDetails && (
+                                                <div
+                                                    id="dropdownDelay"
+                                                    className="absolute right-0 text-black z-10 mt-4 divide-y divide-gray-100 bg-white shadow-lg w-44"
+                                                >
+                                                    <ul className="" aria-labelledby="dropdownDelayButton flex flex-col items-center">
+
+                                                        <MenuItem className={'text-lg w-full text-center'}>
+                                                            <Link href="/dashboard" className="w-full py-1 flex justify-center">
+                                                                Dashboard
+                                                            </Link>
+                                                        </MenuItem>
+                                                        <MenuItem className={'text-lg w-full flex justify-center'}>
+                                                            <Link href="/details" className="w-full flex justify-center py-1">
+                                                                Update Details
+                                                            </Link>
+                                                        </MenuItem>
+
+
+                                                        <li className={'border-t-[1px] bg-gray-100 flex justify-center text-lg hover:bg-gray-200'}>
+                                                            <button onClick={()=>signOut()} className="block px-3 py-2 hover:bg-gray-200">
+                                                                LogOut
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            )}
                                         </div>
-                                    )
-                                }
-                            </li>
-                            <li className={'relative flex flex-col justify-center items-center'}>
-                                <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
-                                    {data ?
-                                        <button onClick={toggleDropdownDetails} className={'p-1 transform transition-all duration-500 rounded-full shadow-gray-800 shadow-sm'}>
-                                            <div>
-                                                <Image className={'rounded-full cursor-pointer'} src={data?.user?.image} alt={''} width={35} height={35}/>
-                                                {isOpenDetails && (
-                                                    <div
-                                                        id="dropdownDelay"
-                                                        className="absolute right-0 text-black z-10 mt-4 divide-y divide-gray-100 bg-white shadow-lg w-44"
-                                                    >
-                                                        <ul className="" aria-labelledby="dropdownDelayButton flex flex-col items-center">
+                                    </button>: <button onClick={()=>signIn( ['github', 'google'] ,  {callbackUrl:'http://localhost:3000/'})}><FaUser size={20}/></button>}
+                            </div>
+                        </li>
 
-                                                            <MenuItem className={'text-lg w-full text-center'}>
-                                                                <Link href="/dashboard" className="w-full py-1 flex justify-center">
-                                                                    Dashboard
-                                                                </Link>
-                                                            </MenuItem>
-                                                            <MenuItem className={'text-lg w-full flex justify-center'}>
-                                                                <Link href="/details" className="w-full flex justify-center py-1">
-                                                                    Update Details
-                                                                </Link>
-                                                            </MenuItem>
-
-
-                                                            <li className={'border-t-[1px] bg-gray-100 flex justify-center text-lg hover:bg-gray-200'}>
-                                                                <button onClick={()=>signOut()} className="block px-3 py-2 hover:bg-gray-200">
-                                                                    LogOut
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </button>: <button onClick={()=>signIn( ['github', 'google'] ,  {callbackUrl:'http://localhost:3000/'})}><FaUser size={20}/></button>}
-                                </div>
-                            </li>
-
-                        </ul>
                     </ul>
                 </div>
             )}

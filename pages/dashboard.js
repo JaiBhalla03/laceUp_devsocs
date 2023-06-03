@@ -11,36 +11,10 @@ import tennisImage from '../images/add1.png';
 import badmintonImage from '../images/add2.jpg';
 import basketballImage from '../images/add3.png';
 
-const { Configuration, OpenAIApi } = require("openai");
+
 
 const Dashboard = () => {
-    const configuration = new Configuration({
-        apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-    });
 
-    const openai = new OpenAIApi(configuration);
-    const [prompt, setPrompt] = useState("");
-    const [apiResponse, setApiResponse] = useState("");
-    const [loading, setLoading] = useState(false);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            const result = await openai.createCompletion({
-                model: "text-davinci-003",
-                prompt: prompt,
-                temperature: 0.5,
-                max_tokens: 4000,
-            });
-            //console.log("response", result.data.choices[0].text);
-            setApiResponse(result.data.choices[0].text);
-        } catch (e) {
-            //console.log(e);
-            setApiResponse("Something is going wrong, Please try again.");
-        }
-        setLoading(false);
-    };
 
     const {data: session} = useSession();
     console.log(session);
@@ -66,9 +40,23 @@ const Dashboard = () => {
             }
         };
         fetchUserData().then(()=>{
+            handleSubmit(details?.favouriteSports);
             console.log('success')
         });
     }, [session]);
+
+    const [loading, setLoading ] = useState(false);
+    const [data, setData] = useState([]);
+
+    const handleSubmit = async (da)=>{
+        setLoading(true);
+        const lin = da;
+        const res = await fetch(`/api/getApiResponse?link=${lin}`)
+        const data = await res.json();
+        setData(data.choices[0].text.trim())
+        setLoading(false);
+        console.log(data)
+    }
 
     const handleEditProfileImage = () => {
         setEditModalOpen(true);
@@ -354,7 +342,17 @@ const Dashboard = () => {
                     Tips and tricks
                 </h1>
                 <div>
-
+                    {details ? (
+                        <div>
+                            {JSON.stringify(()=>handleSubmit(details?.favouriteSports))}
+                        </div>
+                    ) : (
+                        <div class={'w-full'}>
+                            <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                            <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                            <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                        </div>
+                    )}
                 </div>
             </div>
             {editModalOpen && (
@@ -388,8 +386,3 @@ const Dashboard = () => {
 export default Dashboard;
 
 
-// <div class={'w-full'}>
-//     <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-//     <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-//     <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-// </div>
