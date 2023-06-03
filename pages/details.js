@@ -33,6 +33,8 @@ const Details = () => {
         const location = await axios.get('https://ipapi.co/json');
         setCurrentLocation(location.data);
     }
+
+
     useEffect(() => {
         setAddress(currentLocation?.city + ',' + currentLocation?.region);
     }, [currentLocation]);
@@ -59,25 +61,23 @@ const Details = () => {
         rating
     }
 
-    // const handleSubmit = async()=>{
-    //     try{
-    //         console.log(data);
-    //         await axios.post('/api/updateDetails', {
-    //             email,
-    //             fullName,
-    //             address,
-    //             phoneNumber,
-    //             favouriteSports,
-    //             rating
-    //         })
-    //     }
-    //     catch(err){
-    //         console.error(err)
-    //     }
-    // }
-    const handleSubmit = ()=>{
-
+    const handleSubmit = async()=>{
+        try{
+            console.log(data);
+            await axios.post('/api/updateDetails', {
+                email,
+                fullName,
+                address,
+                phoneNumber,
+                favouriteSports,
+                rating
+            })
+        }
+        catch(err){
+            console.error(err)
+        }
     }
+
     console.log(data)
     return (
         <Bounce triggerOnce>

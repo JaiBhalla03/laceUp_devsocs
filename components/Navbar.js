@@ -7,6 +7,7 @@ import {signIn, signOut, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 import {MenuItem} from "@mui/material";
 import {GiRunningShoe} from "react-icons/gi";
+import axios from "axios";
 
 export default function Navbar(){
     const router = useRouter();
@@ -16,6 +17,10 @@ export default function Navbar(){
     const prevScrollY = useRef(0);
     const [showPopup, setShowPopup] = useState(false);
     const [isOpenDetails, setIsOpenDetails] = useState(false);
+    const [showDropdown, setShowDropDown] = useState(false);
+    const {data: session} = useSession();
+    console.log(session);
+    const [details, setDetails] = useState(null);
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
@@ -49,10 +54,30 @@ export default function Navbar(){
         }
     }, [showPopup]);
 
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const res = await axios.get(`/api/userdashboard/${session?.user?.id}`);
+                setDetails(res.data.user);
+            } catch (err) {
+                console.error(err);
+                setDetails(null);
+            }
+        };
+        fetchUserData();
+    }, [session]);
+
     const toggleDropdownDetails = () => {
         setIsOpenDetails(!isOpenDetails);
+        setShowDropDown(false);
     };
 
+    const handleDropdownToggle = () => {
+        setShowDropDown(prevState => !prevState);
+        setIsOpenDetails(false);
+    };
+
+    console.log(data?.user);
     return (
         <nav className={`z-20 bg-white text-black border-b-[1px] font-semibold transition-all duration-700 transition-all ${
             isScrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100 sticky top-0"
@@ -66,29 +91,41 @@ export default function Navbar(){
                     </div>
                     <div className="hidden md:block w-full">
                         <ul className="flex justify-between space-x-10 text-xl">
-                            <ul className="mx-14 flex justify-center space-x-10 text-xl">
+                            <ul className="mx-14 flex justify-center space-x-10 text-lg">
                                 <li className={'flex items-center'}>
-                                    <Link href="/matches" className="hover:text-gray-300">
+                                    <Link href="/matches" className="hover:text-gray-700">
                                         Find Matches
                                     </Link>
                                 </li>
                                 <li className={'flex items-center'}>
-                                    <Link href="/tournament" className="hover:text-gray-300">
+                                    <Link href="/tournament" className="hover:text-gray-700">
                                         Enter Tournaments
                                     </Link>
                                 </li>
                                 <li className={'flex items-center'}>
-                                    <Link href="/book" className="hover:text-gray-300">
+                                    <Link href="/book" className="hover:text-gray-700">
                                         Book venue
                                     </Link>
                                 </li>
                             </ul>
                             <ul className="flex space-x-10 text-xl">
-                                <li className={'relative p-2'}>
+                                <li className={'relative p-2 hover:bg-gray-200 rounded-full duration-500 transition-all transform cursor-pointer'} onClick={handleDropdownToggle}>
                                     <GiRunningShoe size={28}/>
-                                    <p className={'absolute top-0 end-0 rounded-full shadow-gray-800 shadow-sm px-1.5 text-sm'}>
-                                        0
+                                    <p className={'absolute top-0 bg-white end-0 rounded-full shadow-gray-800 shadow-sm px-1.5 text-sm'}>
+                                        {details?.slayPoints}
                                     </p>
+                                    {
+                                        showDropdown && (
+                                            <div className="absolute right-0 z-10 mt-2 w-40 bg-white rounded-md shadow-lg">
+
+                                                    <MenuItem>
+                                                        <Link href={'/business'} className={'py-2'}>
+                                                            Buy Slay Points
+                                                    </Link>
+                                                    </MenuItem>
+                                            </div>
+                                        )
+                                    }
                                 </li>
                                 <li className={'relative flex flex-col justify-center items-center'}>
                                     <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
@@ -99,22 +136,24 @@ export default function Navbar(){
                                                     {isOpenDetails && (
                                                         <div
                                                             id="dropdownDelay"
-                                                            className="absolute right-0 text-black z-10 mt-4 animate-slide-down bg-white divide-y divide-gray-100 shadow-md shadow-gray-600 w-44"
+                                                            className="absolute right-0 text-black z-10 mt-4 divide-y divide-gray-100 bg-white rounded-md shadow-lg w-44"
                                                         >
-                                                            <ul className="" aria-labelledby="dropdownDelayButton">
-                                                                <Link href="/dashboard" className="block flex justify-center">
-                                                                    <MenuItem className={'text-lg w-full flex justify-center'}>
-                                                                        Dashboard
-                                                                    </MenuItem>
-                                                                </Link>
-                                                                <Link href="/details" className="block flex justify-center py-1">
-                                                                    <MenuItem className={'text-lg w-full flex justify-center'}>
-                                                                        Update Details
-                                                                    </MenuItem>
-                                                                </Link>
+                                                            <ul className="" aria-labelledby="dropdownDelayButton flex flex-col items-center">
 
-                                                                <li className={'border-t-[1px] flex justify-center text-lg hover:bg-gray-200'}>
-                                                                    <button onClick={()=>signOut()} className="block px-3 py-1 hover:bg-gray-200">
+                                                                    <MenuItem className={'text-lg w-full text-center'}>
+                                                                        <Link href="/dashboard" className="w-full py-1 flex justify-center">
+                                                                            Dashboard
+                                                                        </Link>
+                                                                    </MenuItem>
+                                                                    <MenuItem className={'text-lg w-full flex justify-center'}>
+                                                                        <Link href="/details" className="w-full flex justify-center py-1">
+                                                                        Update Details
+                                                                        </Link>
+                                                                    </MenuItem>
+
+
+                                                                <li className={'border-t-[1px] bg-gray-100 flex justify-center text-lg hover:bg-gray-200'}>
+                                                                    <button onClick={()=>signOut()} className="block px-3 py-2 hover:bg-gray-200">
                                                                         LogOut
                                                                     </button>
                                                                 </li>
@@ -143,18 +182,18 @@ export default function Navbar(){
                 <div className="md:hidden text-xl">
                     <ul className="flex flex-col space-y-10 py-4 px-3 absolute top-16 left-0 w-full bg-white">
                         <li className="text-center">
-                            <Link href="/Artworks" className="hover:text-gray-300">
-                                Artworks
+                            <Link href="/matches" className="hover:text-gray-300">
+                                Find Matches
                             </Link>
                         </li>
                         <li className="text-center">
-                            <Link href="/Artists" className="hover:text-gray-300">
-                                Artist
+                            <Link href="/tournament" className="hover:text-gray-300">
+                                Enter Tournament
                             </Link>
                         </li>
                         <li className="text-center">
-                            <Link href="/About" className="hover:text-gray-300">
-                                About
+                            <Link href="/book" className="hover:text-gray-300">
+                                Book Venue
                             </Link>
                         </li>
                         <li className={'relative flex flex-col justify-center items-center'}>

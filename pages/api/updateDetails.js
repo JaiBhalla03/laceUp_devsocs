@@ -13,6 +13,7 @@ export default async function handler(req, res) {
         rating
     } = req.body;
     console.log({ email, fullName, address, phoneNumber, favouriteSports, rating})
+    const slayPoints = 0;
     try {
         const updatedUser = await prisma.user.update({
             where: { email },
@@ -21,10 +22,18 @@ export default async function handler(req, res) {
                 address,
                 phoneNumber,
                 favouriteSports,
-                rating
+                rating,
+                slayPoints
             },
         });
-
+        console.log({
+            fullName,
+            address,
+            phoneNumber,
+            favouriteSports,
+            rating,
+            slayPoints
+        })
         res.status(200).json(updatedUser);
     } catch (error) {
         console.error('Error updating user details:', error);

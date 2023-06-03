@@ -1,5 +1,5 @@
 import React from 'react';
-import MatchCard from "@/components/matchCard";
+import MatchCard from "../components/matchCard";
 import user from '../images/profile.jpg';
 
 const Matches = () => {
