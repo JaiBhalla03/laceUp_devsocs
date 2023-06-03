@@ -8,13 +8,7 @@ export default async function handler(req, res) {
                 id: id,
             },
             include: {
-                userMatches: {
-                    include: {
-                        match: true,
-                    },
-                },
-                accounts: true,
-                sessions: true,
+                matches: true
             },
         });
 

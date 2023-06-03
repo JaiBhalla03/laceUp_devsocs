@@ -136,7 +136,7 @@ export default function Navbar(){
                                                     {isOpenDetails && (
                                                         <div
                                                             id="dropdownDelay"
-                                                            className="absolute right-0 text-black z-10 mt-4 divide-y divide-gray-100 bg-white rounded-md shadow-lg w-44"
+                                                            className="absolute right-0 text-black z-10 mt-4 divide-y divide-gray-100 bg-white shadow-lg w-44"
                                                         >
                                                             <ul className="" aria-labelledby="dropdownDelayButton flex flex-col items-center">
 

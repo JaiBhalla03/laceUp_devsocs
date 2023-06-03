@@ -3,6 +3,7 @@ import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import {Fade} from 'react-awesome-reveal';
 import Link from "next/link";
 import axios from "axios";
+import {Button, TextField} from "@mui/material";
 
 const Footer = () => {
     const [name, setName] = useState('');
@@ -34,7 +35,7 @@ const Footer = () => {
     return (
         <>
             <Fade delay={250} className={'z-0'}>
-                <div className="bg-white text-black py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
+                <div className="bg-white text-black py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-10">
                     <div className="max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm">
                         <div className="p-5">
                             <div className={'md:flex md:flex-wrap md:-mx-4 py-6 m-4'}>
@@ -68,42 +69,42 @@ const Footer = () => {
                                     </div>
                                 </div>
                                 <div className="md:w-[30%] md:px-4">
-                                    <h2 className="uppercase mb-4 font-bold text-xl">Contact us</h2>
+                                    <h2 className="uppercase mb-4 font-bold text-xl">Reach Out!</h2>
                                     <form onSubmit={handleSubmit}>
                                         <div className="mb-4">
-                                            <input
-                                                className="focus:border-none focus:outline-none p-2 bg-white shadow-gray-800 shadow-sm w-full rounded"
+                                            <TextField
+                                                className="w-full"
                                                 type="text"
-                                                placeholder="Name"
+                                                label={"Name"}
                                                 value={name}
                                                 onChange={(e)=>setName(e.target.value)}
                                             />
                                         </div>
                                         <div className="mb-4">
-                                            <input
-                                                className="focus:border-none focus:outline-none p-2 bg-white shadow-gray-800 shadow-sm w-full rounded"
+                                            <TextField
+                                                className="w-full"
                                                 type="text"
-                                                placeholder="Email"
+                                                label="Email"
                                                 value={email}
                                                 onChange={(e)=>setEmail(e.target.value)}
                                             />
                                         </div>
                                         <div className="mb-4">
-                                            <textarea
-                                                className="focus:border-none focus:outline-none p-2 bg-white resize-none shadow-gray-800 shadow-sm w-full rounded"
+                                            <TextField
+                                                className="w-full h-[60px]"
                                                 rows={5}
-                                                placeholder="Message"
+                                                label="Message"
                                                 value={message}
                                                 onChange={(e)=>setMessage(e.target.value)}
-                                            ></textarea>
+                                            ></TextField>
                                         </div>
                                         <div className="flex justify-center">
-                                            <button
-                                                className="text-black px-4 py-2 text-xl transition-all duration-500 bg-white shadow-sm shadow-gray-800 rounded-md hover:scale-110 active:scale-90"
+                                            <Button
+                                                variant={'contained'}
                                                 type={'submit'}
                                             >
                                                 Send
-                                            </button>
+                                            </Button>
                                         </div>
                                     </form>
                                 </div>

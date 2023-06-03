@@ -4,6 +4,12 @@ import {FaEdit} from "react-icons/fa";
 import Image from "next/image";
 import {AiFillStar, AiOutlinePlus} from "react-icons/ai";
 import axios from "axios";
+import NewMatch from '../components/NewMatch';
+import {GiRunningShoe} from "react-icons/gi";
+
+import tennisImage from '../images/add1.png';
+import badmintonImage from '../images/add2.jpg';
+import basketballImage from '../images/add3.png';
 
 const Dashboard = () => {
     const {data: session} = useSession();
@@ -12,6 +18,11 @@ const Dashboard = () => {
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     console.log(session?.user?.id)
+    const [addFormOpen, setAddFormOpen] = useState(false);
+
+    const toggleAddForm = ()=>{
+        setAddFormOpen(true);
+    }
 
     //for fetching the user details
     useEffect(() => {
@@ -24,7 +35,9 @@ const Dashboard = () => {
                 setDetails(null);
             }
         };
-        fetchUserData();
+        fetchUserData().then(()=>{
+            console.log('success')
+        });
     }, [session]);
 
     const handleEditProfileImage = () => {
@@ -50,13 +63,37 @@ const Dashboard = () => {
         }
     };
 
-    const arr = new Array(details?.rating);
-    for(let i=0;i<details?.rating;i++){
-        arr.push('lol');
-    }
-    console.log(details);
+    const handleEscapeKeyPress = (event) => {
+        if (event.key === 'Escape') {
+            setAddFormOpen(false);
+        }
+    };
+
+    // Add an event listener to handle the "Escape" key press
+    useEffect(() => {
+        document.addEventListener('keydown', handleEscapeKeyPress);
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKeyPress);
+        };
+    }, []);
+
+    const matches = details?.matches;
+
+    const renderImage = (sports) => {
+        switch (sports) {
+            case 'Tennis':
+                return <Image src={tennisImage} alt="Tennis" width={120}/>;
+            case 'Badminton':
+                return <Image src={badmintonImage} alt="Badminton" width={120}/>;
+            case 'Basketball':
+                return <Image src={basketballImage} alt="Basketball" width={120}/>;
+            default:
+                return null;
+        }
+    };
+
     return (
-        <main className="bg-white text-black py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
+        <main className="relative bg-white text-black py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20 overflow-x-hidden">
             <div className="shadow-gray-800 shadow-sm px-2 py-2 md:px-8 md:p-8 lg:py-8 lg:px-32 flex items center justify-between flex-col-reverse md:flex-row">
                 <div className="flex items-center flow-col justify-center">
                     <div>
@@ -104,9 +141,10 @@ const Dashboard = () => {
                             <p className="text-sm text-gray-800">Rating</p>
                             <div className="text-sm md:text-xl font-bold flex">
                                 {details?.rating ? (
-                                    arr.map((i) => (
-                                        <AiFillStar key={i} className={'text-yellow-500'}/>
-                                    ))
+                                        <div className={'flex items-center text-yellow-500'}>
+                                            {details?.rating} <AiFillStar className={'text-yellow-500'} size={20}/>
+                                        </div>
+
                                 ) : (
                                     <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-300 w-64 mb-4 animate-pulse"></div>
                                 )}
@@ -163,7 +201,9 @@ const Dashboard = () => {
                                     My Matches
                                 </h1>
                                 <button
-                                    className={'flex text-xl bg-green-400 p-2 rounded-sm hover:bg-green-500 hover:scale-105 active:scale-95 duration-300 transition-all focus:outline-none focus:border-none'}>
+                                    className={'flex text-xl bg-green-400 p-2 rounded-sm hover:bg-green-500 hover:scale-105 active:scale-95 duration-300 transition-all focus:outline-none focus:border-none'}
+                                    onClick={toggleAddForm}
+                                >
                                     Create
                                     <div className={'flex items-center'}>
                                         <AiOutlinePlus size={30} />
@@ -173,12 +213,33 @@ const Dashboard = () => {
                             </div>
                         </div>
                         {
-                                <div className={'w-full'}>
-                                    <div className={'h-[92px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-                                    <div className={'h-[92px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-                                    <div className={'h-[92px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-                                    <div className={'h-[92px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-                                </div>
+                                details?(
+                                    matches?.map((match)=>(
+                                        <div className={'h-[92px] flex justify-around shadow-sm shadow-gray-800'}>
+                                            <div>
+                                                {renderImage(match.game)}
+                                            </div>
+                                            <div className={'flex flex-col justify-between'}>
+                                                <div className={'flex font-bold'}>
+                                                    Venue: <div className={'font-thin'}>{match.venue}</div>
+                                                </div>
+                                                <div className={'flex font-bold'}>
+                                                    Time: <div className={'font-thin'}>{match.time}</div>
+                                                </div>
+                                                <div className={'flex font-bold'}>
+                                                    Slay Points BetFor: <div className={'font-thin'}>{match.betFor}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                ):(
+                                    <div className={'w-full'}>
+                                        <div className={'h-[92px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                                        <div className={'h-[92px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                                        <div className={'h-[92px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                                        <div className={'h-[92px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                                    </div>
+                                )
 
                         }
                     </div>
@@ -187,11 +248,73 @@ const Dashboard = () => {
                 <h1 className={'text-3xl'}>
                     Matches Played History
                 </h1>
-                <div class={'w-full'}>
-                    <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-                    <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-                    <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
-                </div>
+                {
+                    details? (
+                        <div class={'w-full h-56 overflow-scroll p-4 border shadow-sm mt-8'}>
+                            <div className={'px-8 py-4 h-[50px] bg-green-300 text-green-700 font-bold rounded-sm w-full my-2 flex justify-between items-center'}>
+                                <div className={'h-full flex items-center'}>
+                                    Win!
+                                </div>
+                                <div class={'font-thin flex items-center h-full'}>
+                                    Played badminton against Jai Bhalla
+                                </div>
+                                <div className={'flex items-center h-full'}>
+                                    +200 <GiRunningShoe size={20}/>
+                                </div>
+                            </div>
+                            <div className={'px-8 py-4 h-[50px] bg-red-300 text-red-700 font-bold rounded-sm w-full my-2 flex justify-between items-center'}>
+                                <div className={'h-full flex items-center'}>
+                                    Loss!
+                                </div>
+                                <div class={'font-thin flex items-center h-full'}>
+                                    Played badminton against Harmanpreet
+                                </div>
+                                <div className={'flex h-full items-center'}>
+                                    -150 <GiRunningShoe size={20}/>
+                                </div>
+                            </div>
+                            <div className={'px-8 py-4 h-[50px] bg-red-300 text-red-700 font-bold rounded-sm w-full my-2 flex justify-between items-center'}>
+                                <div className={'h-full flex items-center'}>
+                                    Loss!
+                                </div>
+                                <div class={'font-thin flex items-center h-full'}>
+                                    Played tennis against Mridul Jain
+                                </div>
+                                <div className={'flex h-full items-center'}>
+                                    +220 <GiRunningShoe size={20}/>
+                                </div>
+                            </div>
+                            <div className={'px-8 py-4 h-[50px] bg-green-300 text-green-700 font-bold rounded-sm w-full my-2 flex justify-between items-center'}>
+                                <div className={'h-full flex items-center'}>
+                                    Win!
+                                </div>
+                                <div class={'font-thin flex items-center h-full'}>
+                                    Played badminton against Dhruv Sharma
+                                </div>
+                                <div className={'h-full flex items-center'}>
+                                    +280 <GiRunningShoe size={20}/>
+                                </div>
+                            </div>
+                            <div className={'px-8 py-4 h-[50px] bg-green-300 text-green-700 font-bold rounded-sm w-full my-2 flex justify-between items-center'}>
+                                <div className={'h-full flex items-center'}>
+                                    Win!
+                                </div>
+                                <div class={'font-thin flex items-center h-full'}>
+                                    Played basketball against Dhruv Sharma
+                                </div>
+                                <div className={'flex items-center'}>
+                                    +360 <GiRunningShoe size={20}/>
+                                </div>
+                            </div>
+                        </div>
+                    ):(
+                        <div class={'w-full'}>
+                            <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                            <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                            <div className={'h-[50px] bg-gray-200 rounded-sm dark:bg-gray-300 animate-pulse w-full my-2'}></div>
+                        </div>
+                    )
+                }
             </div>
             <div className="shadow-gray-800 shadow-sm px-2 py-2 my-4 md:px-8 md:p-8">
                 <h1 className={'text-3xl'}>
@@ -221,6 +344,11 @@ const Dashboard = () => {
                     </div>
                 </div>
             )}
+            {
+                addFormOpen && (
+                    <NewMatch/>
+                )
+            }
         </main>
 
     );
