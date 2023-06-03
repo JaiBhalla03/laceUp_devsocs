@@ -10,8 +10,8 @@ import {GiRunningShoe} from "react-icons/gi";
 import tennisImage from '../images/add1.png';
 import badmintonImage from '../images/add2.jpg';
 import basketballImage from '../images/add3.png';
-
-
+import logo from '../images/openAiLogo.jpg';
+import {SiOpenai} from "react-icons/si";
 
 const Dashboard = () => {
 
@@ -40,8 +40,9 @@ const Dashboard = () => {
             }
         };
         fetchUserData().then(()=>{
-            handleSubmit(details?.favouriteSports);
-            console.log('success')
+                handleSubmit(details?.favouriteSports).then(()=>{
+                    console.log(details?.favouriteSports)
+                });
         });
     }, [session]);
 
@@ -338,13 +339,31 @@ const Dashboard = () => {
                 }
             </div>
             <div className="shadow-gray-800 shadow-sm px-2 py-2 my-4 md:px-8 md:p-8">
-                <h1 className={'text-3xl'}>
-                    Tips and tricks
-                </h1>
+                <div class={'flex justify-between'}>
+                    <h1 className={'text-3xl'}>
+                        Tips and tricks
+                    </h1>
+                    <div className={'flex items-center'}>
+                        Powered By <SiOpenai className={'mr-2'}/>
+                    </div>
+                </div>
                 <div>
                     {details ? (
-                        <div>
-                            {JSON.stringify(()=>handleSubmit(details?.favouriteSports))}
+                        <div className={'w-full'}>
+                            <div className={'h-[55px] p-2 bg-gray-200 rounded-sm flex items-center w-full my-2'}>
+                                Master the basic techniques: Focus on perfecting the fundamental skills of badminton, including grip,
+                                footwork, and racket control. Practice the basic shots like the clear, drop shot, smash, and net shot.
+                            </div>
+                            <div className={'h-[55px] p-2 bg-gray-200 rounded-sm flex items-center w-full my-2'}>
+                                Work on your footwork: Good footwork is crucial in badminton. Practice moving quickly and efficiently
+                                around the court, making small, quick steps. Maintain a balanced stance to be ready to respond to shots
+                                from your opponent.
+                            </div>
+                            <div className={'h-[55px] p-2 bg-gray-200 rounded-sm flex items-center w-full my-2'}>
+                                Develop a strong serve: A powerful and accurate serve can give you an advantage in a game. Practice
+                                various types of serves, such as low serves, flick serves, and high serves, to keep your opponent
+                                guessing.
+                            </div>
                         </div>
                     ) : (
                         <div class={'w-full'}>

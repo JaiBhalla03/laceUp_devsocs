@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import axios from 'axios';
+import BookCard from "../components/BookCard";
 
 const Book = () => {
     const api_key='0da6f5b644906bc2d6fcf3182c8f9b02';
@@ -26,8 +27,13 @@ const Book = () => {
         });
     },[])
     return (
-        <div>
-            this is the book
+        <div className="">
+            <div className="">
+                <BookCard/>
+                <BookCard/>
+                <BookCard/>
+                <BookCard/>
+            </div>
         </div>
     );
 };
