@@ -33,3 +33,21 @@
 ![image](https://github.com/JaiBhalla03/laceUp_devsocs/assets/101990594/656e44e0-b1ea-4ef1-a8dd-b3826e046b2b)
 ![image](https://github.com/JaiBhalla03/laceUp_devsocs/assets/101990594/8502e0ba-708e-4b7e-a2b1-797ad7363bb2)
 ![image](https://github.com/JaiBhalla03/laceUp_devsocs/assets/101990594/7eeca2c1-f33e-42a8-9ec0-f9455e9dc19c)
+
+## ML-implementation 
+
+### Interactive match analysis
+![interactive match analysis](https://github.com/JaiBhalla03/laceUp_devsocs/assets/101990594/71eceef0-4acb-4c8a-885c-85ee4fcbd3e7)
+
+### ScoreCard Analysis
+![scorecard_analysis](https://github.com/JaiBhalla03/laceUp_devsocs/assets/101990594/dab07728-ff22-47b9-9c29-32c4382d0bf5)
+
+### StreamLit combined
+![Streamlit_combined](https://github.com/JaiBhalla03/laceUp_devsocs/assets/101990594/8f3b2d64-d166-451c-928b-f57e8364bfb5)
+
+![White Black Grey Plaid Square Border Collage Fathers Day Card](https://github.com/JaiBhalla03/laceUp_devsocs/assets/101990594/080213ec-2db4-4efe-bc03-18300b016539)
+
+### Chatting
+![chatting](https://github.com/JaiBhalla03/laceUp_devsocs/assets/101990594/139f807e-7c35-4839-8c9f-218aade6aa04)
+
+
