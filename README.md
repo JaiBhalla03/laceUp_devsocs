@@ -54,3 +54,5 @@
 ### Figma File
 https://www.figma.com/file/xiqf67b2e8PXiqwBKcYoPB/devsoc?type=design&node-id=0-1&t=JdBvGSD3ZTzUktqT-0
 
+<h1> By Mridul Jain </h1>
+
