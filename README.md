@@ -54,3 +54,7 @@
 ### Figma File
 https://www.figma.com/file/xiqf67b2e8PXiqwBKcYoPB/devsoc?type=design&node-id=0-1&t=JdBvGSD3ZTzUktqT-0
 
+<a href = "https://github.com/Spinachboul">Mridul Jain</a>
+<a href = "https://github.com/JaiBhalla03">Jai Bhalla</a>
+<a href = "https://github.com/Harmansenshi13">Harmanpreet Singh</a>
+
